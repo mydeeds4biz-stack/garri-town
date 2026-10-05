@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#edf2df">
+    <meta name="description" content="Grow cassava, make garri, and build a thriving little farm in Garri Town.">
+    <title>Garri Town — Grow a little, build a lot</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Garri Town home">
+          <span class="brand-mark" aria-hidden="true">G</span>
+          <span>GARRI<span class="brand-light">TOWN</span></span>
+        </a>
+        <span class="topbar-note">A little farm with big plans.</span>
+        <span class="live-pill"><span></span> YOUR FARM IS GROWING</span>
+      </header>
+
+      <main>
+        <section class="intro-row" aria-labelledby="game-title">
+          <div>
+            <p class="eyebrow">WELCOME TO YOUR LITTLE CORNER OF THE WORLD</p>
+            <h1 id="game-title">Grow a little, <span>build a lot.</span></h1>
+            <p class="intro-copy">Tend your cassava fields, keep the garri house humming, and help a sleepy market grow into a lively town.</p>
+          </div>
+          <div class="level-card">
+            <span class="level-badge" id="level-badge">1</span>
+            <span><small>FARMER LEVEL</small><strong id="level-title">New Roots</strong></span>
+            <span class="level-progress"><span id="xp-progress"></span></span>
+            <small class="xp-label" id="xp-label">0 / 60 XP</small>
+          </div>
+        </section>
+
+        <section class="economy-strip" aria-label="Farm resources">
+          <div class="resource"><span aria-hidden="true">🪙</span><span><small>TOWN COINS</small><strong id="coins">0</strong></span></div>
+          <div class="resource"><span aria-hidden="true">🌱</span><span><small>CASSAVA</small><strong id="cassava">0</strong></span></div>
+          <div class="resource"><span aria-hidden="true">🛍️</span><span><small>GARRI BAGS</small><strong id="garri">0</strong></span></div>
+          <div class="resource"><span aria-hidden="true">🌾</span><span><small>GROWING PLOTS</small><strong id="plot-count">1 / 6</strong></span></div>
+          <div class="resource"><span aria-hidden="true">📈</span><span><small>FARM VALUE</small><strong id="farm-value">0</strong></span></div>
+        </section>
+
+        <div class="game-layout">
+          <section class="farm-panel" aria-labelledby="farm-heading">
+            <div class="panel-heading">
+              <div><p class="eyebrow">YOUR VERY OWN HOMESTEAD</p><h2 id="farm-heading">The farm</h2></div>
+              <span class="weather-pill">☀ &nbsp; Sunny day</span>
+            </div>
+            <div class="farm-scene" aria-label="Illustrated view of the Garri Town farm">
+              <span class="sun-decoration" aria-hidden="true">☀</span>
+              <span class="cloud cloud-a" aria-hidden="true">☁</span>
+              <span class="cloud cloud-b" aria-hidden="true">☁</span>
+              <div class="distant-hill hill-a"></div><div class="distant-hill hill-b"></div>
+              <div class="river"></div>
+              <div class="farm-path"></div>
+              <div class="scene-trees" aria-hidden="true">🌳　🌴　🌳　🌳　🌴</div>
+              <div class="farm-layout" id="farm-layout"></div>
+              <div class="town-sign"><span>WELCOME TO</span><strong>GARRI TOWN</strong></div>
+              <span class="scene-bird bird-one" aria-hidden="true">⌁</span><span class="scene-bird bird-two" aria-hidden="true">⌁</span>
+              <span class="scene-caption">YOUR FARM · DAY <span id="day-count">1</span></span>
+            </div>
+
+            <div class="production-heading">
+              <div><p class="eyebrow">THE LITTLE ENGINES THAT COULD</p><h3>Production today</h3></div>
+              <span class="working-indicator"><span></span> Workers on the job</span>
+            </div>
+            <div class="production-list">
+              <article class="production-row">
+                <span class="production-icon crop-icon">🌿</span>
+                <span class="production-copy"><strong>Cassava fields</strong><small>Fresh roots, ready for the grater</small></span>
+                <span class="production-rate"><strong id="crop-rate">0 / min</strong><small>growing</small></span>
+                <span class="rate-track"><span id="crop-progress"></span></span>
+              </article>
+              <article class="production-row">
+                <span class="production-icon mill-icon">⚙️</span>
+                <span class="production-copy"><strong>Garri house</strong><small>Turning roots into golden garri</small></span>
+                <span class="production-rate"><strong id="mill-rate">0 / min</strong><small>processing</small></span>
+                <span class="rate-track"><span id="mill-progress"></span></span>
+              </article>
+            </div>
+            <div class="farm-footer">
+              <span>🌼 <strong id="farm-mood">It's a lovely day on the farm.</strong></span>
+              <span id="last-saved">Saved just now</span>
+            </div>
+          </section>
+
+          <aside class="side-column">
+            <section class="side-card order-card" aria-labelledby="order-heading">
+              <div class="side-card-heading"><div><p class="eyebrow">A NOTE FROM THE NEIGHBOURHOOD</p><h2 id="order-heading">Town order</h2></div><span class="order-icon" aria-hidden="true">📋</span></div>
+              <div class="customer-line"><span class="customer-avatar" id="customer-avatar">A</span><span><strong id="customer-name">Adaeze's market stall</strong><small>Could you spare a few fresh bags?</small></span></div>
+              <div class="order-product"><span aria-hidden="true">🛍️</span><span><strong id="order-amount">0 / 5 bags</strong><small>Golden garri · neatly packed</small></span></div>
+              <div class="order-meter" role="progressbar" aria-label="Order fulfillment" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="order-progress"></span></div>
+              <div class="order-reward"><span>When it's ready</span><strong>🪙 <span id="order-reward">0</span> coins</strong><strong>⭐ <span id="order-xp">0</span> XP</strong></div>
+              <button class="deliver-button" id="deliver-order" type="button"><span>Pack up the order</span><span aria-hidden="true">→</span></button>
+              <p class="order-note" id="order-note" aria-live="polite">Your workers are getting the first batch ready.</p>
+            </section>
+
+            <section class="side-card upgrades-card" aria-labelledby="upgrades-heading">
+              <div class="side-card-heading"><div><p class="eyebrow">GOOD THINGS TAKE ROOT</p><h2 id="upgrades-heading">Farm improvements</h2></div><span class="upgrade-sparkle" aria-hidden="true">✦</span></div>
+              <button class="upgrade-option" id="upgrade-fields" type="button">
+                <span class="upgrade-emoji">🌱</span><span class="upgrade-copy"><strong>Better seedlings</strong><small id="field-upgrade-detail">Grow roots faster</small></span><span class="upgrade-price"><strong id="field-upgrade-cost">🪙 0</strong><small id="field-upgrade-level">Level 0</small></span>
+              </button>
+              <button class="upgrade-option" id="upgrade-mill" type="button">
+                <span class="upgrade-emoji">⚙️</span><span class="upgrade-copy"><strong>Grater upgrade</strong><small id="mill-upgrade-detail">Process garri faster</small></span><span class="upgrade-price"><strong id="mill-upgrade-cost">🪙 0</strong><small id="mill-upgrade-level">Level 0</small></span>
+              </button>
+              <button class="expand-option" id="expand-plot" type="button">
+                <span aria-hidden="true">＋</span><span><strong>Clear a new field</strong><small id="plot-cost">0 coins</small></span><span class="expand-arrow" aria-hidden="true">→</span>
+              </button>
+              <p class="upgrade-hint">Every improvement is yours to keep. Your farm works while you're away, too.</p>
+            </section>
+          </aside>
+        </div>
+        <p class="toast" id="toast" role="status" aria-live="polite">Welcome home! Your first cassava field is ready to grow.</p>
+      </main>
+      <footer class="footer"><span>Made with cassava &amp; good vibes.</span><span>A cosy little browser game · No wallet or token required.</span></footer>
+    </div>
+  </body>
+</html>
