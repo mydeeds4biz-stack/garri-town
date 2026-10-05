@@ -58,6 +58,13 @@
               <div class="farm-path"></div>
               <div class="scene-trees" aria-hidden="true">🌳　🌴　🌳　🌳　🌴</div>
               <div class="farm-layout" id="farm-layout"></div>
+              <div class="farm-activity" aria-hidden="true">
+                <span class="activity-label"><i></i> HARVEST TO MARKET</span>
+                <span class="activity-route"></span>
+                <span class="moving-crop crop-one">🌱</span>
+                <span class="moving-crop crop-two">🌿</span>
+                <span class="moving-crop crop-three">🛍️</span>
+              </div>
               <div class="town-sign"><span>WELCOME TO</span><strong>GARRI TOWN</strong></div>
               <span class="scene-bird bird-one" aria-hidden="true">⌁</span><span class="scene-bird bird-two" aria-hidden="true">⌁</span>
               <span class="scene-caption">YOUR FARM · DAY <span id="day-count">1</span></span>
@@ -80,6 +87,12 @@
                 <span class="production-rate"><strong id="mill-rate">0 / min</strong><small>processing</small></span>
                 <span class="rate-track"><span id="mill-progress"></span></span>
               </article>
+              <article class="production-row">
+                <span class="production-icon pack-icon">🧺</span>
+                <span class="production-copy"><strong>Packing table</strong><small>Bagging up fresh garri for town</small></span>
+                <span class="production-rate"><strong id="packing-rate">0 / min</strong><small>packing</small></span>
+                <span class="rate-track"><span id="packing-progress"></span></span>
+              </article>
             </div>
             <div class="farm-footer">
               <span>🌼 <strong id="farm-mood">It's a lovely day on the farm.</strong></span>
@@ -99,13 +112,9 @@
             </section>
 
             <section class="side-card upgrades-card" aria-labelledby="upgrades-heading">
-              <div class="side-card-heading"><div><p class="eyebrow">GOOD THINGS TAKE ROOT</p><h2 id="upgrades-heading">Farm improvements</h2></div><span class="upgrade-sparkle" aria-hidden="true">✦</span></div>
-              <button class="upgrade-option" id="upgrade-fields" type="button">
-                <span class="upgrade-emoji">🌱</span><span class="upgrade-copy"><strong>Better seedlings</strong><small id="field-upgrade-detail">Grow roots faster</small></span><span class="upgrade-price"><strong id="field-upgrade-cost">🪙 0</strong><small id="field-upgrade-level">Level 0</small></span>
-              </button>
-              <button class="upgrade-option" id="upgrade-mill" type="button">
-                <span class="upgrade-emoji">⚙️</span><span class="upgrade-copy"><strong>Grater upgrade</strong><small id="mill-upgrade-detail">Process garri faster</small></span><span class="upgrade-price"><strong id="mill-upgrade-cost">🪙 0</strong><small id="mill-upgrade-level">Level 0</small></span>
-              </button>
+              <div class="side-card-heading"><div><p class="eyebrow">EVERY STATION HAS ROOM TO GROW</p><h2 id="upgrades-heading">Equipment &amp; tiers</h2></div><span class="upgrade-sparkle" aria-hidden="true">✦</span></div>
+              <p class="equipment-intro">Upgrade a station to boost its speed and see it grow on your farm.</p>
+              <div class="equipment-list" id="equipment-list" aria-label="Equipment upgrades"></div>
               <button class="expand-option" id="expand-plot" type="button">
                 <span aria-hidden="true">＋</span><span><strong>Clear a new field</strong><small id="plot-cost">0 coins</small></span><span class="expand-arrow" aria-hidden="true">→</span>
               </button>

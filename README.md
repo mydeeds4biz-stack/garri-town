@@ -18,12 +18,19 @@ Then visit `http://localhost:8000`.
 
 ## How it works
 
-- Cassava plots grow roots automatically, and the garri house processes roots
-  into finished bags while the farm is open.
+- Cassava plots grow roots automatically. Roots pass through the wash house,
+  grater, press, roasting pan, and packing table before becoming garri bags.
+- Workers walk the farm while animated cassava and garri move along the
+  harvest-to-market route; active machines bounce and show live stock.
+- Starter equipment now runs at a brisk pace, so a new farm can fill its first
+  five-bag market order in about six seconds.
 - Deliver market orders for coins and experience. Level up to earn welcome
   coins and keep progressing through larger customer orders.
-- Spend coins on better seedlings, faster processing, and up to five additional
-  growing plots.
+- Upgrade six pieces of equipment: cassava fields, the wash house, grater,
+  fermenting press, roasting pan, and packing table. Each has six visual tiers
+  that improve its production speed, cost more as it advances, and appear on
+  both the upgrade cards and the farm map.
+- Spend coins on equipment upgrades and up to five additional growing plots.
 - Your farm, stock, upgrades, level, and market progress save in this browser.
   Production continues for up to eight hours while you are away.
 
