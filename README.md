@@ -1,14 +1,14 @@
-# Garri Town
+# Tap Garri
 
-A free, standalone browser idle game about growing a small cassava farm into a
-busy garri-making town. The original farm illustration and game economy are
-inspired by cosy farming and town-building simulations.
+A free, standalone browser idle clicker set in a lively Lagos-inspired garri
+market. Tap to pack orders, hire a crew to work automatically, and keep growing
+your market run.
 
 ## Play
 
 Open `index.html` in a modern browser. No package installation, account, server,
 wallet, or token is required. For local hosting, run a static server from this
-folder, for example:
+folder:
 
 ```powershell
 python -m http.server 8000
@@ -18,21 +18,15 @@ Then visit `http://localhost:8000`.
 
 ## How it works
 
-- Cassava plots grow roots automatically. Roots pass through the wash house,
-  grater, press, roasting pan, and packing table before becoming garri bags.
-- Workers walk the farm while animated cassava and garri move along the
-  harvest-to-market route; active machines bounce and show live stock.
-- Starter equipment now runs at a brisk pace, so a new farm can fill its first
-  five-bag market order in about six seconds.
-- Deliver market orders for coins and experience. Level up to earn welcome
-  coins and keep progressing through larger customer orders.
-- Upgrade six pieces of equipment: cassava fields, the wash house, grater,
-  fermenting press, roasting pan, and packing table. Each has six visual tiers
-  that improve its production speed, cost more as it advances, and appear on
-  both the upgrade cards and the farm map.
-- Spend coins on equipment upgrades and up to five additional growing plots.
-- Your farm, stock, upgrades, level, and market progress save in this browser.
-  Production continues for up to eight hours while you are away.
+- Tap the garri bowl to pack the current market order and earn game coins.
+- Hire Market Aunties, the Danfo Crew, and the Garri Guild to pack orders
+  automatically, even while the game is closed (up to eight hours).
+- Upgrade your tap strength and helper crew to tackle larger, endlessly scaling
+  orders. Upgrade and helper prices rise as you buy more.
+- After reaching order 10, prestige to begin a new market era. This resets the
+  current run's coins, helpers, upgrades, and order progress in exchange for
+  permanent Market Legacy power.
+- Your progress saves in this browser.
 
 The game uses pretend points only. **$GARRI is not connected**, and the game
 does not request a wallet, handle tokens, or promise financial rewards.
@@ -40,5 +34,6 @@ does not request a wallet, handle tokens, or promise financial rewards.
 ## Project files
 
 - `index.html` — game interface and accessible controls.
-- `styles.css` — responsive visual design and illustrated farm.
-- `game.js` — idle production, orders, upgrades, offline progress, and saves.
+- `styles.css` — responsive design and illustrated Garri Town market.
+- `game.js` — clicker gameplay, helpers, upgrades, prestige, offline progress,
+  and local saves.
