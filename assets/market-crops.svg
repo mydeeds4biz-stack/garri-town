@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 96" role="img" aria-label="Wheat, pepper, and onion growing in a small garden">
+  <path fill="#735537" d="M11 74c19-8 37-7 55-2s37 4 53-1 34-5 50 1l-4 10H15z"/>
+  <path fill="#9f7845" d="M14 72c20-7 35-5 52 0s37 3 55-2 31-4 46 1l2 5c-19-4-33-3-49 2s-39 6-58 0-31-6-49 0z"/>
+  <path fill="none" stroke="#547c3e" stroke-linecap="round" stroke-width="3" d="M38 71c1-17 0-29-2-44m2 29L27 44m11 2 11-13m-9 27 13-9"/>
+  <path fill="#d8ad4e" d="M32 31c-5-1-7-5-4-8 1 5 4 5 6 5-4-4-3-8 1-10-1 5 0 7 3 9-2-5 1-9 5-9-2 5-1 7 1 10-1-5 2-7 6-8-2 4-2 8-1 11l-5 3-11-1z"/>
+  <path fill="none" stroke="#547c3e" stroke-linecap="round" stroke-width="3" d="M89 72c-1-12-2-20-3-27m3 18L75 55m14 2 12-13m-14 5L75 39m11 26 15-3"/>
+  <path fill="#4f843f" d="M84 51c-8 3-12 0-13-5 5 1 9 1 13 4-3-7 0-12 6-15 1 6 0 10-3 14 6-5 11-4 14 0-5 0-10 1-14 5z"/>
+  <path fill="#d74c3c" d="M85 51c-7 6-7 15-4 22 2 5 5 7 9 5 4 3 8 1 10-4 3-8 1-17-7-23-2 3-5 3-8 0z"/>
+  <path fill="#f27b50" d="M90 54c-3 7-3 14 0 22"/>
+  <path fill="none" stroke="#4f843f" stroke-linecap="round" stroke-width="3" d="M137 72c1-11 3-19 8-25m-7 17-12-9m14 1 11-8"/>
+  <path fill="#548244" d="M144 51c-7-4-8-9-5-13 3 4 5 5 7 6 0-5 4-8 9-7-3 4-4 7-4 10 6-3 10-1 11 4-6-2-11-1-15 3z"/>
+  <path fill="#d9b17c" d="M132 65c-4 5-3 12 1 16 6 6 18 6 24 0 4-5 4-11 0-16-7 3-18 3-25 0z"/>
+  <path fill="#ead0a2" d="M137 67c4 2 12 2 17 0"/>
+  <path fill="#f1d9ae" d="M136 73c5 2 13 2 18 0m-17 5c4 2 11 2 15 0"/>
+</svg>

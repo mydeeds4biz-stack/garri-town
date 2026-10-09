@@ -7,6 +7,8 @@
     <meta name="description" content="Tap garri, beat endless market orders, hire helpers, and grow your Lagos town in this free idle clicker.">
     <title>Tap Garri — Build your market empire</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
     <script src="game.js" defer></script>
   </head>
   <body>
@@ -16,22 +18,63 @@
           <span class="brand-mark" aria-hidden="true">G</span>
           <span>TAP <span class="brand-light">GARRI</span></span>
         </a>
-        <span class="topbar-note">From one bowl to all of Lagos.</span>
-        <span class="live-pill"><span></span> YOUR MARKET IS OPEN</span>
+        <span class="topbar-note">From Lagos markets to Ikoyi luxury.</span>
+        <button class="account-open account-icon-button" id="account-open" type="button" aria-label="Player account" title="Player account">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.5 20c.4-4 3.2-6 7.5-6s7.1 2 7.5 6"></path></svg>
+        </button>
+        <span class="live-pill"><span></span> LAGOS MARKET · OPEN</span>
       </header>
+
+      <dialog class="account-dialog" id="account-dialog" aria-labelledby="account-dialog-title">
+        <div class="account-dialog-heading">
+          <div><h2 id="account-dialog-title">Play together</h2><span class="account-handle" id="account-handle">Local play</span></div>
+          <button class="account-icon-button" id="account-close" type="button" aria-label="Close account window" title="Close">×</button>
+        </div>
+        <p class="account-status" id="account-status" role="status" aria-live="polite">Your progress is saved on this device.</p>
+        <div class="account-icons" id="account-icons">
+          <button class="account-icon-button" id="account-sign-in" type="button" aria-label="Sign in" title="Sign in">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M4.5 20c.4-4 3.2-6 7.5-6s7.1 2 7.5 6"></path></svg>
+          </button>
+          <button class="account-icon-button" id="account-sign-up" type="button" aria-label="Create account" title="Create account">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2 20c.4-4 2.9-6 7-6 2 0 3.7.5 4.9 1.5M19 13v8m-4-4h8"></path></svg>
+          </button>
+        </div>
+        <form class="account-form" id="account-form" hidden>
+          <label>Email<input id="account-email" type="email" autocomplete="email" required></label>
+          <label>Password<input id="account-password" type="password" autocomplete="current-password" minlength="8" required></label>
+          <label class="account-handle-input" hidden>Player handle<input id="account-player-handle" type="text" autocomplete="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" placeholder="e.g. LagosTapper" aria-describedby="account-status"></label>
+          <div class="account-actions">
+            <button class="account-button" id="account-submit-sign-in" type="button">SIGN IN</button>
+            <button class="account-button account-button-primary" id="account-submit-sign-up" type="button">CREATE ACCOUNT</button>
+          </div>
+        </form>
+        <div class="account-transfer" id="account-transfer" hidden>
+          <label>Send which garri?
+            <select id="transfer-variety" aria-label="Garri variety to send"></select>
+          </label>
+          <label>Player handle
+            <input id="transfer-recipient" type="text" autocomplete="off" maxlength="20" placeholder="Friend's handle">
+          </label>
+          <label>Amount (Congos)
+            <input id="transfer-amount" type="number" min="0.01" step="0.01" inputmode="decimal" value="1">
+          </label>
+          <button class="account-button account-button-primary" id="send-garri" type="button">SEND GARRI</button>
+          <button class="account-button account-sign-out" id="account-sign-out" type="button">SIGN OUT</button>
+        </div>
+      </dialog>
 
       <main>
         <section class="intro-row" aria-labelledby="game-title">
           <div>
-            <p class="eyebrow">A LITTLE TAP. A BIGGER MARKET.</p>
-            <h1>Tap garri, <span>grow your empire.</span></h1>
-            <p class="intro-copy">Tap to fill each market order, hire helpers to pack while you rest, then prestige and start again with a permanent boost.</p>
+            <p class="eyebrow">LAGOS MARKET · LUXURY IN EVERY SCOOP</p>
+            <h1>Tap garri, <span>rise in style.</span></h1>
+            <p class="intro-copy">Build your Lagos garri empire: tap through the markets, grow a Gele &amp; Gold Owambe crew, and turn every order into island-side luxury.</p>
           </div>
-          <div class="level-card prestige-summary">
-            <span class="level-badge" id="prestige-badge">0</span>
-            <span><small>MARKET LEGACY</small><strong id="prestige-title">Fresh start</strong></span>
-            <span class="level-progress"><span id="prestige-progress"></span></span>
-            <small class="xp-label" id="prestige-boost">1.00× power</small>
+          <div class="level-card" aria-label="Tap level and experience">
+            <span class="level-badge" id="level-badge">1</span>
+            <span><small>TAP LEVEL</small><strong id="level-title">Rookie Tapper</strong></span>
+            <span class="level-progress"><span id="xp-progress"></span></span>
+            <small class="xp-label" id="xp-label">0 / 20 XP</small>
           </div>
         </section>
 
@@ -40,16 +83,26 @@
           <div class="resource"><span aria-hidden="true">📦</span><span><small>ORDER</small><strong id="stage-count">1</strong></span></div>
           <div class="resource"><span aria-hidden="true">👆</span><span><small>TAP POWER</small><strong id="tap-stat">1</strong></span></div>
           <div class="resource"><span aria-hidden="true">⚡</span><span><small>HELPERS / SEC</small><strong id="dps-stat">0</strong></span></div>
-          <div class="resource"><span aria-hidden="true">🏆</span><span><small>ORDERS BEATEN</small><strong id="orders-beaten">0</strong></span></div>
+          <div class="resource"><span aria-hidden="true">🏬</span><span><small>SHOP INCOME</small><strong id="store-income">0 / sec</strong></span></div>
+          <div class="resource" title="One completed market order adds one game Congo"><span aria-hidden="true">🥣</span><span><small>CONGOS PACKED</small><strong id="congos-packed">0</strong></span></div>
+        </section>
+
+        <section class="garri-wallet" aria-labelledby="garri-heading">
+          <div class="wallet-heading">
+            <div><span class="wallet-kicker">YOUR MARKET STOCK</span><h2 id="garri-heading">Garri in your store</h2></div>
+            <span class="wallet-total"><strong id="garri-total">0</strong><small>garri Congos</small></span>
+          </div>
+          <p class="wallet-intro">Tap to pack garri. Choose a Nigerian variety; each tap adds the displayed amount to its stock.</p>
+          <div class="garri-varieties" id="garri-varieties" aria-label="Choose a garri variety"></div>
         </section>
 
         <div class="game-layout">
           <section class="farm-panel" aria-labelledby="market-heading">
             <div class="panel-heading">
-              <div><p class="eyebrow">LAGOS MARKET · ORDER <span id="order-number">1</span></p><h2 id="market-heading">Market Rush</h2></div>
+              <div><p class="eyebrow"><span id="market-area">YABA MARKET</span> · ORDER <span id="order-number">1</span></p><h2 id="market-heading">Market Rush</h2></div>
               <span class="weather-pill" id="market-mood">☀ &nbsp; The market is lively</span>
             </div>
-            <div class="farm-scene tap-scene" aria-label="Illustrated Garri Town market">
+            <div class="farm-scene tap-scene" id="market-scene" data-scene="yaba" aria-label="Yaba Market scene">
               <span class="sun-decoration" aria-hidden="true">☀</span>
               <span class="cloud cloud-a" aria-hidden="true">☁</span>
               <span class="cloud cloud-b" aria-hidden="true">☁</span>
@@ -57,7 +110,14 @@
               <div class="river"></div>
               <div class="farm-path"></div>
               <div class="scene-trees" aria-hidden="true">🌳　🌴　🌳　🌳　🌴</div>
+              <span class="scene-landmark" id="scene-landmark" aria-hidden="true">🚏</span>
               <div class="farm-layout" id="farm-layout" aria-hidden="true"></div>
+              <span class="market-mascot" id="market-mascot" aria-hidden="true">
+                <span class="mascot-frame mascot-idle"></span>
+                <span class="mascot-frame mascot-walk"></span>
+                <span class="mascot-frame mascot-run"></span>
+                <span class="mascot-frame mascot-jump"></span>
+              </span>
               <div class="farm-activity" aria-hidden="true">
                 <span class="activity-label"><i></i> GARRI ON THE WAY</span>
                 <span class="activity-route"></span>
@@ -74,15 +134,23 @@
                 <small id="boss-health-label">10 garri bags to pack</small>
               </div>
               <button class="tap-target" id="tap-target" type="button" aria-label="Tap the garri bowl to pack the market order">
-                <span class="tap-target-glow"></span>
-                <span class="tap-target-icon" aria-hidden="true">🥣</span>
+                <span class="tap-bowl-shell" aria-hidden="true">
+                  <span class="tap-garri"></span>
+                  <span class="garri-grains"></span>
+                </span>
                 <span class="tap-target-label">TAP TO PACK!</span>
               </button>
               <div class="floating-numbers" id="floating-numbers" aria-hidden="true"></div>
-              <span class="scene-caption">YOUR MARKET · ORDER <span id="scene-order">1</span></span>
+              <aside class="bowl-showcase" aria-label="Your luxury garri bowl collection">
+                <span class="showcase-kicker">YOUR LUXURY BOWL</span>
+                <span class="showcase-bowl" id="showcase-bowl" data-luxury="0" aria-hidden="true"><span></span></span>
+                <strong id="bowl-luxury-name">Market Bronze</strong>
+                <small id="bowl-level-label">Tap Level 1</small>
+              </aside>
+              <span class="scene-caption"><span id="scene-location">YOUR MARKET</span> · ORDER <span id="scene-order">1</span></span>
             </div>
             <div class="challenge-footer">
-              <span><strong id="order-reward">+5</strong> coins when this order is packed</span>
+              <span><strong id="order-reward">+10</strong> coins when this order is packed</span>
               <span id="idle-note">Tap the bowl or hire helpers to pack automatically.</span>
             </div>
           </section>
@@ -90,24 +158,92 @@
           <aside class="side-column">
             <section class="side-card helpers-card" aria-labelledby="helpers-heading">
               <div class="side-card-heading"><div><p class="eyebrow">YOUR CREW HAS YOUR BACK</p><h2 id="helpers-heading">Hire helpers</h2></div><span class="order-icon" aria-hidden="true">🧑🏾‍🍳</span></div>
-              <p class="equipment-intro">Helpers pack orders for you, even while you're away.</p>
+              <p class="equipment-intro">Recruit and evolve fictional Lagos crews without a rank cap. Hire five of a crew to evolve it; every rank doubles its packing power.</p>
               <div class="helper-list" id="helper-list" aria-label="Hire idle helpers"></div>
             </section>
 
+            <section class="side-card stores-card" aria-labelledby="stores-heading">
+              <div class="side-card-heading"><div><p class="eyebrow">TAKE OVER THE CITY, ONE SHOP AT A TIME</p><h2 id="stores-heading">Lagos stores</h2></div><span class="order-icon" aria-hidden="true">🏬</span></div>
+              <p class="equipment-intro">Open or expand lavish Lagos storefront franchises as you advance. Buy more locations and evolve without a rank cap; each rank doubles that shop's income.</p>
+              <div class="store-list" id="store-list" aria-label="Garri shops and supermarkets"></div>
+            </section>
+
+            <section class="side-card market-chat" id="market-chat" aria-labelledby="chat-heading">
+              <div class="side-card-heading">
+                <div><p class="eyebrow">THE MARKET IS ALIVE</p><h2 id="chat-heading">Market chat</h2></div>
+                <span class="order-icon" aria-hidden="true">💬</span>
+              </div>
+              <p class="equipment-intro">Chat with the market. Messages are public; keep personal information private.</p>
+              <p class="chat-status" id="chat-status" role="status" aria-live="polite">Connecting to the market chat…</p>
+              <div class="chat-messages" id="chat-messages" role="log" aria-label="Public market chat" aria-live="polite" aria-relevant="additions"></div>
+              <div class="chat-emoji-row" aria-label="Quick emojis">
+                <button class="chat-emoji" type="button" data-chat-emoji="🥣" aria-label="Add bowl emoji">🥣</button>
+                <button class="chat-emoji" type="button" data-chat-emoji="🎉" aria-label="Add celebration emoji">🎉</button>
+                <button class="chat-emoji" type="button" data-chat-emoji="🔥" aria-label="Add fire emoji">🔥</button>
+                <button class="chat-emoji" type="button" data-chat-emoji="😂" aria-label="Add laughing emoji">😂</button>
+                <button class="chat-emoji" type="button" data-chat-emoji="💛" aria-label="Add heart emoji">💛</button>
+                <button class="chat-emoji" type="button" data-chat-emoji="🇳🇬" aria-label="Add Nigeria flag">🇳🇬</button>
+              </div>
+              <div class="chat-sticker-row" aria-label="Send a sticker">
+                <button class="chat-sticker" type="button" data-chat-sticker="garri-bowl"><span aria-hidden="true">🥣✨</span><small>Fresh bowl</small></button>
+                <button class="chat-sticker" type="button" data-chat-sticker="owambe"><span aria-hidden="true">🎉💃🏾</span><small>Owambe!</small></button>
+                <button class="chat-sticker" type="button" data-chat-sticker="danfo"><span aria-hidden="true">🚌💨</span><small>Danfo rush</small></button>
+                <button class="chat-sticker" type="button" data-chat-sticker="lagos-love"><span aria-hidden="true">💛🇳🇬</span><small>Lagos love</small></button>
+              </div>
+              <form class="chat-compose" id="chat-form">
+                <label class="visually-hidden" for="chat-input">Write a market chat message</label>
+                <input id="chat-input" name="message" type="text" maxlength="240" autocomplete="off" placeholder="Say something nice…" required>
+                <span class="chat-character-count" id="chat-character-count" aria-live="polite">0/240</span>
+                <button class="chat-send" id="chat-send" type="submit">SEND</button>
+              </form>
+            </section>
+
+            <section class="side-card leaderboard-card" aria-labelledby="leaderboard-heading">
+              <div class="side-card-heading">
+                <div><p class="eyebrow">WHO RULES THE MARKET?</p><h2 id="leaderboard-heading">Lagos leaderboard</h2></div>
+                <button class="leaderboard-refresh" id="leaderboard-refresh" type="button">REFRESH</button>
+              </div>
+              <p class="equipment-intro" id="leaderboard-status" role="status" aria-live="polite">Loading player rankings…</p>
+              <div class="leaderboard-table-wrap">
+                <table class="leaderboard-table">
+                  <thead><tr><th scope="col">#</th><th scope="col">Player</th><th scope="col">Orders</th><th scope="col">Level</th><th scope="col">Legacy</th></tr></thead>
+                  <tbody id="leaderboard-rows"><tr><td colspan="5">Connect to see the market standings.</td></tr></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="side-card feasts-card" aria-labelledby="feasts-heading">
+              <div class="side-card-heading"><div><p class="eyebrow">SELL GARRI · LIVE LAVISH</p><h2 id="feasts-heading">Owambe &amp; island feasts</h2></div><span class="order-icon" aria-hidden="true">🍽️</span></div>
+              <p class="equipment-intro">Grow an ever-expanding Owambe dining collection. Each new lavish experience boosts market-order rewards.</p>
+              <div class="feast-list" id="feast-list" aria-label="Buy Lagos feasts with market coins"></div>
+            </section>
+
             <section class="side-card upgrades-card" aria-labelledby="upgrades-heading">
-              <div class="side-card-heading"><div><p class="eyebrow">MAKE EVERY TAP COUNT</p><h2 id="upgrades-heading">Market upgrades</h2></div><span class="upgrade-sparkle" aria-hidden="true">✦</span></div>
+              <div class="side-card-heading"><div><p class="eyebrow">MAKE EVERY TAP &amp; DELIVERY COUNT</p><h2 id="upgrades-heading">Market upgrades</h2></div><span class="upgrade-sparkle" aria-hidden="true">✦</span></div>
               <div class="upgrade-list" id="upgrade-list"></div>
               <div class="prestige-box">
-                <div><strong>Start a new market era</strong><small id="prestige-hint">Beat order 10 to earn your first Market Legacy.</small></div>
+                <div class="prestige-details">
+                  <strong>Market Legacy · <span id="prestige-badge">0</span></strong>
+                  <small id="prestige-boost">1.00× permanent power</small>
+                  <small id="prestige-hint">Beat order 10 to earn your first Market Legacy.</small>
+                </div>
                 <button class="prestige-button" id="prestige-button" type="button" disabled>PRESTIGE</button>
               </div>
-              <p class="upgrade-hint">Prestige restarts your orders and upgrades, but keeps your permanent power boost. Your progress saves in this browser.</p>
+              <div class="quick-actions" aria-label="Market actions">
+                <button class="quick-action" id="smart-buy-button" type="button">SMART BUY</button>
+                <button class="quick-action quick-action-secondary" id="reset-save-button" type="button">RESET SAVE</button>
+              </div>
+              <p class="quick-action-hint" id="smart-buy-hint">SPACE taps · B smart buy · P prestige</p>
+              <p class="share-caption">One Congo per order. Show off your bowl upgrade and join the Lagos creator challenge on TikTok or YouTube Shorts.</p>
+              <a class="share-on-x" id="x-share" href="https://twitter.com/intent/tweet" target="_blank" rel="noopener noreferrer">𝕏 &nbsp; Share your Lagos score</a>
+              <button class="share-on-youtube" id="copy-youtube-caption" type="button">♪ &nbsp; Copy a TikTok / YouTube Shorts caption</button>
+              <p class="upgrade-hint">Prestige restarts your orders, helpers, upgrades, and shops, but keeps your permanent power boost. Your progress saves in this browser.</p>
             </section>
           </aside>
         </div>
         <p class="toast" id="toast" role="status" aria-live="polite">Welcome to the market! Tap the bowl to pack your first order.</p>
       </main>
-      <footer class="footer"><span>Made with cassava &amp; good vibes.</span><span>Free idle clicker · Game coins only · No wallet or token required.</span></footer>
+      <footer class="footer"><span>From the market to the Lagos high life.</span><span>Garri is in-game currency with no cash value.</span></footer>
     </div>
   </body>
 </html>
